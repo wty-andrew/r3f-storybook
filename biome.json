@@ -6,7 +6,8 @@
     ]
   },
   "formatter": {
-    "indentStyle": "space"
+    "indentStyle": "space",
+    "lineWidth": 88
   },
   "organizeImports": {
     "enabled": true
@@ -17,6 +18,9 @@
       "recommended": true,
       "style": {
         "noNonNullAssertion": "info"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off"
       }
     }
   },
