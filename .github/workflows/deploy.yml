@@ -1,12 +1,22 @@
-name: CI
+name: Build and Publish Storybook to GitHub Pages
 
-on: push
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -32,14 +42,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Lint
-        run: pnpm run lint
-
-      - name: Test
-        run: pnpm run test
-
-      - name: Build
-        run: pnpm run build
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        env:
+          VITE_BASE_PATH: /r3f-storybook
+        with:
+          install_command: pnpm install
+          build_command: pnpm build-storybook
+          path: storybook-static
+          checkout: false
