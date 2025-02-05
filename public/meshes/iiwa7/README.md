@@ -1,0 +1,1 @@
+The models were downloaded from [lbr-stack/lbr_fri_ros2_stack](https://github.com/lbr-stack/lbr_fri_ros2_stack) and re-exported with axis conversion (Z_UP to Y_UP). For more details, see the issue mentioned [here](https://github.com/mrdoob/three.js/issues/24289).

@@ -1,0 +1,21 @@
+import { Meta } from "@storybook/blocks";
+
+import * as Stories from './index.stories'
+
+<Meta of={Stories} />
+
+# Robot Arm
+
+The models were converted from ROS packages with [urdfjsx](https://github.com/wty-andrew/urdfjsx)
+
+## References
+
+### CCDIK
+
+- [https://zalo.github.io/blog/inverse-kinematics/](https://zalo.github.io/blog/inverse-kinematics/)
+
+### 3D Models
+
+- Kuka iiwa7 was downloaded from [lbr-stack/lbr_fri_ros2_stack](https://github.com/lbr-stack/lbr_fri_ros2_stack)  and re-exported with axis conversion (Z_UP to Y_UP). See [this](https://github.com/mrdoob/three.js/issues/24289) issue for more details.
+- Robotiq 2F-85 was downloaded from [PickNikRobotics/ros2_robotiq_gripper](https://github.com/PickNikRobotics/ros2_robotiq_gripper).
+- Robotiq wrist camera was converted from STEP file downloaded from [robotiq official site](https://robotiq.com/support).
