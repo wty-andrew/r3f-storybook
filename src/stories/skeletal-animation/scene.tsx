@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { suspend } from 'suspend-react'
 import * as THREE from 'three'
 
+import { useCreateStore } from '@/leva'
 import { createArmature } from './armature'
 import Fox, { MODEL_PATH } from './fox'
 import { loadAnimations, loadSkeleton } from './gltf-parser'
@@ -15,24 +16,32 @@ import Transform from './transform'
 type AnimationClip = Record<string, TransformTrack>
 
 const useSettings = (animations: Record<string, AnimationClip>) => {
+  const store = useCreateStore()
   const options = Object.keys(animations)
-  const { animation } = useControls({
-    animation: {
-      options,
-      value: options[0] || '',
-    },
-  })
-
-  const [{ frame }, setFrame] = useControls(() => {
-    return {
-      frame: {
-        value: 0,
-        min: 0,
-        max: Object.values(animations[animation])[0].maxFrame - 1,
-        step: 1,
+  const { animation } = useControls(
+    {
+      animation: {
+        options,
+        value: options[0] || '',
       },
-    }
-  }, [animation])
+    },
+    { store }
+  )
+
+  const [{ frame }, setFrame] = useControls(
+    () => {
+      return {
+        frame: {
+          value: 0,
+          min: 0,
+          max: Object.values(animations[animation])[0].maxFrame - 1,
+          step: 1,
+        },
+      }
+    },
+    { store },
+    [animation]
+  )
 
   // biome-ignore lint/correctness/useExhaustiveDependencies:
   useEffect(() => setFrame({ frame: 0 }), [animation])

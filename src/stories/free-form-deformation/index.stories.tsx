@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react'
 
+import Leva from '@/leva'
 import { DeformMaterial, updateUniforms } from './deform-material'
 import { useFFD, useSettings, useSurfaceLatticePoints } from './hooks'
 import LatticeModifier, { type LatticeModifierHandle } from './lattice-modifier'
@@ -96,9 +97,13 @@ export default {
   title: 'Free-Form Deformation',
   decorators: [
     (Story) => (
-      <Setup>
-        <Story />
-      </Setup>
+      <>
+        <Setup>
+          <Story />
+        </Setup>
+
+        <Leva />
+      </>
     ),
   ],
 } satisfies Meta<FunctionComponent>

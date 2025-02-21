@@ -2,29 +2,34 @@ import { GizmoHelper, GizmoViewport, OrbitControls, Stats } from '@react-three/d
 import { Canvas } from '@react-three/fiber'
 import type { Meta } from '@storybook/react'
 
+import Leva from '@/leva'
 import Scene from './scene'
 
 export const Default = () => (
-  <Canvas camera={{ position: [2, 1, -2], zoom: 2 }}>
-    <ambientLight intensity={Math.PI / 2} />
-    <spotLight
-      position={[10, 10, 10]}
-      angle={0.15}
-      penumbra={1}
-      decay={0}
-      intensity={Math.PI}
-    />
-    <pointLight position={[10, 10, -10]} decay={0} intensity={Math.PI} />
+  <>
+    <Canvas camera={{ position: [2, 1, -2], zoom: 2 }}>
+      <ambientLight intensity={Math.PI / 2} />
+      <spotLight
+        position={[10, 10, 10]}
+        angle={0.15}
+        penumbra={1}
+        decay={0}
+        intensity={Math.PI}
+      />
+      <pointLight position={[10, 10, -10]} decay={0} intensity={Math.PI} />
 
-    <Stats />
-    <OrbitControls makeDefault />
+      <Stats />
+      <OrbitControls makeDefault />
 
-    <GizmoHelper alignment="bottom-right" renderPriority={2}>
-      <GizmoViewport labelColor="white" />
-    </GizmoHelper>
+      <GizmoHelper alignment="bottom-right" renderPriority={2}>
+        <GizmoViewport labelColor="white" />
+      </GizmoHelper>
 
-    <Scene />
-  </Canvas>
+      <Scene />
+    </Canvas>
+
+    <Leva />
+  </>
 )
 
 export default {

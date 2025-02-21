@@ -3,14 +3,15 @@ import { button, folder, useControls } from 'leva'
 import { useCallback, useLayoutEffect, useRef } from 'react'
 import type * as THREE from 'three'
 
+import { useCreateStore } from '@/leva'
 import type { JointSchema } from '@/types'
 import Gripper, { jointSchema as gripperJointSchema } from './gripper'
+import IKSolver from './ik-solver'
 import RobotArm, { jointSchema as armJointSchema } from './robot-arm'
 import useJointControl from './use-joint-control'
 import { setOpacity } from './utils'
 import VirtualCamera from './virtual-camera'
 import WristCamera, { jointSchema as wristCameraJointSchema } from './wrist-camera'
-import IKSolver from './ik-solver'
 
 const DEFAULT_POSE: Record<string, number> = {
   link0_to_link1: 0,
@@ -59,20 +60,24 @@ const Scene = () => {
     []
   )
 
-  const { showCameraHelper, liveUpdate } = useControls({
-    showCameraHelper: {
-      label: 'Show Camera Helper',
-      value: false,
-    },
-    IK: folder({
-      liveUpdate: {
-        label: 'Live Update',
-        value: true,
+  const store = useCreateStore()
+  const { showCameraHelper, liveUpdate } = useControls(
+    {
+      showCameraHelper: {
+        label: 'Show Camera Helper',
+        value: false,
       },
-      'Reset Target': button(resetTarget),
-      Step: button(() => solve(1)),
-    }),
-  })
+      IK: folder({
+        liveUpdate: {
+          label: 'Live Update',
+          value: true,
+        },
+        'Reset Target': button(resetTarget),
+        Step: button(() => solve(1)),
+      }),
+    },
+    { store }
+  )
 
   return (
     <>
