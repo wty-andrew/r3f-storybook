@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import shortid from 'shortid'
 import * as THREE from 'three'
 
+import { useCreateStore } from '@/leva'
 import FFD, { ParametricCoordinate, type ControlPoints } from './ffd'
 import type { LatticePoint } from './lattice-modifier'
 
@@ -27,6 +28,8 @@ const createGeometry = (shape: Shape) => {
 }
 
 export const useSettings = () => {
+  const store = useCreateStore()
+
   const slider = {
     value: DEFAULT_LATTICE_DIMENSION,
     min: 1,
@@ -34,13 +37,16 @@ export const useSettings = () => {
     step: 1,
   }
 
-  return useControls({
-    shape: {
-      options: Object.values(Shape),
-      value: Shape.Sphere,
+  return useControls(
+    {
+      shape: {
+        options: Object.values(Shape),
+        value: Shape.Sphere,
+      },
+      Dimension: folder({ l: slider, m: slider, n: slider }),
     },
-    Dimension: folder({ l: slider, m: slider, n: slider }),
-  })
+    { store }
+  )
 }
 
 export const useSurfaceLatticePoints = (controlPoints: ControlPoints) =>

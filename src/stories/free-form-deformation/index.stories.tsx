@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react'
 
+import Leva from '@/leva'
 import { DeformMaterial, updateUniforms } from './deform-material'
 import { useFFD, useSettings, useSurfaceLatticePoints } from './hooks'
 import LatticeModifier, { type LatticeModifierHandle } from './lattice-modifier'
@@ -16,27 +17,31 @@ import LatticeModifier, { type LatticeModifierHandle } from './lattice-modifier'
 type Story = StoryObj<FunctionComponent>
 
 const Setup = ({ children }: PropsWithChildren) => (
-  <Canvas camera={{ position: [3, 3, 4], zoom: 2 }}>
-    <OrbitControls makeDefault />
+  <>
+    <Canvas camera={{ position: [3, 3, 4], zoom: 2 }}>
+      <OrbitControls makeDefault />
 
-    <color attach="background" args={['black']} />
-    <ambientLight intensity={Math.PI / 2} />
-    <spotLight
-      position={[10, 10, 10]}
-      angle={0.15}
-      penumbra={1}
-      decay={0}
-      intensity={Math.PI}
-    />
+      <color attach="background" args={['black']} />
+      <ambientLight intensity={Math.PI / 2} />
+      <spotLight
+        position={[10, 10, 10]}
+        angle={0.15}
+        penumbra={1}
+        decay={0}
+        intensity={Math.PI}
+      />
 
-    <GizmoHelper alignment="bottom-right">
-      <GizmoViewport labelColor="white" />
-    </GizmoHelper>
+      <GizmoHelper alignment="bottom-right">
+        <GizmoViewport labelColor="white" />
+      </GizmoHelper>
 
-    <Stats />
+      <Stats />
 
-    {children}
-  </Canvas>
+      {children}
+    </Canvas>
+
+    <Leva />
+  </>
 )
 
 export const DefaultStory: Story = {
